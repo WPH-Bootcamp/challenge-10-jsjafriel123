@@ -48,3 +48,14 @@ export async function getPostsByUser(
     revalidate: 60,
   });
 }
+
+export async function searchPosts(
+  query: string,
+  page = 1,
+  limit = 10
+): Promise<UserPaginatedResponse<UserPost>> {
+  return fetchAPI<UserPaginatedResponse<UserPost>>(
+    `/posts/search?query=${encodeURIComponent(query)}&page=${page}&limit=${limit}`,
+    { revalidate: 60 }
+  );
+}

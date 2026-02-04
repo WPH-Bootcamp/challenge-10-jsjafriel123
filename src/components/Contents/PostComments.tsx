@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { getCommentsById } from '@/lib/comments';
 import CommentForm from '../ui/commentForm';
 import CommentCard from '../ui/commentCard';
@@ -17,7 +16,11 @@ export default async function PostComments({ id }: Props) {
     <section className='flex h-auto w-full flex-col items-center gap-4 lg:gap-6'>
       <CommentForm />
 
-      {comments.length === 0 && <p>Be the first to comment!</p>}
+      {comments.length === 0 && (
+        <em className='text-primary-300 lg:text-md text-sm'>
+          Be the first to comment!
+        </em>
+      )}
 
       {comments.slice(0, 3).map((comment) => (
         <Fragment key={comment.id}>
@@ -25,12 +28,7 @@ export default async function PostComments({ id }: Props) {
           <CommentCard key={comment.id} comment={comment} />
         </Fragment>
       ))}
-      {/* <button
-        disabled={!isMore}
-        className={`text-primary-300 self-start text-sm font-semibold underline hover:scale-110 ${isMore ? '' : 'hidden'}`}
-      >
-        See_All_Comments
-      </button> */}
+
       {isMore && <MoreComments comments={comments} />}
     </section>
   );

@@ -6,7 +6,7 @@ const PostCard = ({ post }: { post: Post }) => {
   const dateCreated = format(new Date(post.createdAt), 'dd-MM-yyyy');
 
   return (
-    <div className='flex h-[240px] w-full flex-row items-center gap-4 lg:h-[276px] lg:gap-6'>
+    <div className='flex h-[240px] w-full flex-row items-center gap-4 lg:h-[280px] lg:gap-6'>
       <img
         src={post.imageUrl}
         alt='Blog Picture'

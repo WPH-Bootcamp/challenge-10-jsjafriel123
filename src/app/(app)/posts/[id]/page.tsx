@@ -13,7 +13,9 @@ export default async function DetailPage({ params }: PageProps) {
   const { id } = await params;
 
   if (Number.isNaN(id)) {
-    return <p>Page Not Found</p>;
+    return (
+      <em className='text-primary-300 lg:text-md text-sm'>Page Not Found</em>
+    );
   }
   const postId = Number(id);
   const post = await getPostById(postId);
@@ -23,7 +25,7 @@ export default async function DetailPage({ params }: PageProps) {
       <div className='flex w-[393px] flex-col items-center gap-3 p-4 py-0 lg:w-[1440px] lg:gap-4 lg:px-[320px]'>
         <PostDetail post={post} />
         <PostComments id={post.id} />
-        <PostByUser authorId={post.author.id} />
+        <PostByUser postId={post.id} authorId={post.author.id} />
       </div>
     </div>
   );

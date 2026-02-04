@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 type Props = {
   currentPage: number;
   totalPages: number;
+  epoint?: string;
 };
 
 function getPaginationWindow(currentPage: number, totalPages: number) {
@@ -39,7 +40,8 @@ function getPaginationWindow(currentPage: number, totalPages: number) {
 
 export default function Pagination({
   currentPage,
-  totalPages, // backend doesn’t return total yet
+  totalPages,
+  epoint = '',
 }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -52,11 +54,11 @@ export default function Pagination({
   function goToPage(page: number) {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', String(page));
-    router.push(`/?${params.toString()}`, { scroll: false });
+    router.push(`/${epoint}?${params.toString()}`, { scroll: false });
   }
 
   return (
-    <div className='bg-background flex h-[48px] w-full items-center justify-center gap-4 lg:w-[368px]'>
+    <div className='bg-background flex h-[32px] w-full items-center justify-center gap-4 lg:w-92'>
       <button
         type='button'
         disabled={currentPage === 1}

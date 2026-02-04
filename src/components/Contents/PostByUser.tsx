@@ -1,14 +1,14 @@
 import { getPostsByUser } from '@/lib/posts';
-import { User, UserPost } from '@/types/blog';
 import { Fragment } from 'react';
 import PostCard from '../ui/postCard';
 import Link from 'next/link';
 
 type Props = {
+  postId: number;
   authorId: number;
 };
 
-export default async function PostByUser({ authorId }: Props) {
+export default async function PostByUser({ postId, authorId }: Props) {
   const result = await getPostsByUser(authorId);
   const { data: posts, total, page, lastPage, user } = result;
 
@@ -22,14 +22,17 @@ export default async function PostByUser({ authorId }: Props) {
           No more Post by Author
         </em>
       )}
-      {posts.map((post) => (
-        <Fragment key={post.id}>
-          <Link href={`/posts/${post.id}`}>
-            <div className='h-0 w-full border border-neutral-300' />
-            <PostCard post={post} />
-          </Link>
-        </Fragment>
-      ))}
+      {posts.map((post) => {
+        if (post.id === postId) return null;
+        return (
+          <Fragment key={post.id}>
+            <Link href={`/posts/${post.id}`}>
+              <div className='h-0 w-full border border-neutral-300' />
+              <PostCard post={post} />
+            </Link>
+          </Fragment>
+        );
+      })}
     </section>
   );
 }
