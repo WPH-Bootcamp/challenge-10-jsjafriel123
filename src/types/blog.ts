@@ -1,6 +1,6 @@
 /**
  * Blog Types
- * 
+ *
  * TODO: Define types sesuai dengan response dari API
  * Contoh structure (sesuaikan dengan API response yang sebenarnya):
  */
@@ -22,3 +22,30 @@
 //   page: number;
 //   // ... tambahkan fields lainnya
 // }
+
+export type Author = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+};
+
+export type Post = {
+  id: number;
+  title: string;
+  content: string;
+  tags: string[];
+  imageUrl: string;
+  imagePublicId: string;
+  createdAt: string;
+  likes: number;
+  comments: number;
+  author: Author;
+};
+
+export type PaginatedResponse<T> = {
+  data: T[];
+  total: number;
+  page: number;
+  lastPage: number;
+};
