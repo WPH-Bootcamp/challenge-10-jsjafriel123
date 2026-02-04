@@ -7,7 +7,7 @@ type Props = {
 
 export default async function PostDetail({ id }: Props) {
   const post = await getPostById(id);
-  console.log(post);
+  // console.log(post);
   const dateCreated = format(new Date(post.createdAt), 'dd-MM-yyyy');
 
   return (
@@ -91,7 +91,10 @@ export default async function PostDetail({ id }: Props) {
       />
       {/* Content */}
       <div className='max-h-[1142px] w-full lg:max-h-[922px]'>
-        <p className='lg:text-md text-sm text-neutral-950'>{post.content}</p>
+        <article
+          className='lg:text-md text-sm text-neutral-950'
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
       </div>
 
       <div className='h-0 w-full border border-neutral-300' />
