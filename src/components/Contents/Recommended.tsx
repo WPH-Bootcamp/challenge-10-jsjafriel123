@@ -12,9 +12,6 @@ type Props = {
 export default async function Recommended({ page }: Props) {
   const result = await getRecommendedPosts(page);
   const { data: posts, page: page2, lastPage } = result;
-  console.log('Page:', page2);
-  console.log('Last Page:', lastPage);
-  console.log(posts);
 
   return (
     <section className='flex max-h-[1476px] w-[361px] flex-col items-center gap-4 overflow-y-auto py-6 lg:max-h-[1730px] lg:w-[807px] lg:gap-6'>

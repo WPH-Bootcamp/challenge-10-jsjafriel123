@@ -1,12 +1,8 @@
 import { format } from 'date-fns';
-import { getPostById } from '@/lib/posts';
+import { stripInlineStyles } from '@/lib/sanitizeHtml';
+import type { Post } from '@/types/blog';
 
-type Props = {
-  id: number;
-};
-
-export default async function PostDetail({ id }: Props) {
-  const post = await getPostById(id);
+export default async function PostDetail({ post }: { post: Post }) {
   // console.log(post);
   const dateCreated = format(new Date(post.createdAt), 'dd-MM-yyyy');
 
@@ -92,8 +88,8 @@ export default async function PostDetail({ id }: Props) {
       {/* Content */}
       <div className='max-h-[1142px] w-full lg:max-h-[922px]'>
         <article
-          className='lg:text-md text-sm text-neutral-950'
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          className='prose prose-neutral lg:text-md text-sm text-neutral-950'
+          dangerouslySetInnerHTML={{ __html: stripInlineStyles(post.content) }}
         />
       </div>
 

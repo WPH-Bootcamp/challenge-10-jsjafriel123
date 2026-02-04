@@ -49,3 +49,33 @@ export type PaginatedResponse<T> = {
   page: number;
   lastPage: number;
 };
+
+export type User = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  headline: string;
+  avatarUrl: string;
+};
+
+export type UserPost = {
+  id: number;
+  title: string;
+  content: string;
+  tags: string[];
+  imageUrl: string;
+  imagePublicId: string;
+  createdAt: string;
+  likes: number;
+  comments: number;
+  author: User;
+};
+
+export type UserPaginatedResponse<T> = {
+  data: T[];
+  total: number;
+  page: number;
+  lastPage: number;
+  user: User;
+};

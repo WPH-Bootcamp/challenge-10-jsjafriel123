@@ -1,11 +1,12 @@
 import type { Post } from '@/types/blog';
 import { format } from 'date-fns';
+import { stripInlineStyles } from '@/lib/sanitizeHtml';
 
 const PostCard = ({ post }: { post: Post }) => {
   const dateCreated = format(new Date(post.createdAt), 'dd-MM-yyyy');
 
   return (
-    <div className='flex h-[240px] w-full flex-row gap-4 lg:h-[276px] lg:gap-6'>
+    <div className='flex h-[240px] w-full flex-row items-center gap-4 lg:h-[276px] lg:gap-6'>
       <img
         src={post.imageUrl}
         alt='Blog Picture'
@@ -28,9 +29,12 @@ const PostCard = ({ post }: { post: Post }) => {
             ))}
           </div>
           <div className='h-[48px] w-full lg:h-[56px]'>
-            <p className='line-clamp-2 text-[12px]/[24px] text-[#181D27] lg:text-[14px]/[28px]'>
-              {post.content}
-            </p>
+            <article
+              className='line-clamp-2 text-[12px]/[24px] text-[#181D27] lg:text-[14px]/[28px]'
+              dangerouslySetInnerHTML={{
+                __html: stripInlineStyles(post.content),
+              }}
+            />
           </div>
         </div>
 

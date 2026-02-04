@@ -1,5 +1,6 @@
 import type { Post } from '@/types/blog';
 import { format } from 'date-fns';
+import { stripInlineStyles } from '@/lib/sanitizeHtml';
 
 const MostLikedCard = ({ post }: { post: Post }) => {
   const dateCreated = format(new Date(post.createdAt), 'dd-MM-yyyy');
@@ -9,9 +10,12 @@ const MostLikedCard = ({ post }: { post: Post }) => {
       <h2 className='text-md max-h-[60px] w-full font-bold text-[#181D27]'>
         {post.title}
       </h2>
-      <p className='line-clamp-2 h-[48px] w-full text-[12px]/[24px] text-[#181D27] lg:h-[56px] lg:text-[14px]/[28px]'>
-        {post.content}
-      </p>
+      <article
+        className='line-clamp-2 h-[48px] w-full text-[12px]/[24px] text-[#181D27] lg:h-[56px] lg:text-[14px]/[28px]'
+        dangerouslySetInnerHTML={{
+          __html: stripInlineStyles(post.content),
+        }}
+      />
       <div className='flex h-[28px] w-[149px] items-center justify-evenly gap-3 text-[12px]/[24px] text-[#535862] lg:text-[14px]/[28px]'>
         <div className='flex h-full w-[43px] items-center justify-between'>
           <button
