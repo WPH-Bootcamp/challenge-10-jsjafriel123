@@ -1,31 +1,29 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import type { Metadata } from 'next';
+import './globals.css';
+import { Inter } from 'next/font/google';
 
 export const metadata: Metadata = {
-  title: "Blog App Challenge",
-  description: "Blog Application Challenge - Next.js",
+  title: 'Blog App Challenge',
+  description: 'Blog Application Challenge - Next.js',
+  icons: { icon: '/favicon.png' },
 };
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  style: ['normal', 'italic'],
+  variable: '--font-inter',
+});
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="id">
+    <html lang='id'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} bg-background flex h-auto w-screen flex-col items-center antialiased`}
       >
         {children}
       </body>
