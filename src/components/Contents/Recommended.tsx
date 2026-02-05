@@ -21,13 +21,15 @@ export default async function Recommended({ page }: Props) {
         </h1>
       </div>
       {/* Posting Card */}
-      {posts.map((post) => (
-        <Fragment key={post.id}>
-          <Link href={`/posts/${post.id}`}>
-            <PostCard post={post} />
-          </Link>
-        </Fragment>
-      ))}
+      <div className='h-full w-full gap-6'>
+        {posts.map((post) => (
+          <Fragment key={post.id}>
+            <Link href={`/posts/${post.id}`}>
+              <PostCard post={post} />
+            </Link>
+          </Fragment>
+        ))}
+      </div>
 
       <hr className='w-full border border-[#D5D7DA]' />
 

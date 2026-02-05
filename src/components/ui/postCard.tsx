@@ -7,18 +7,20 @@ const PostCard = ({ post }: { post: Post }) => {
 
   return (
     <div className='flex h-[240px] w-full flex-row items-center gap-4 lg:h-[280px] lg:gap-6'>
-      <img
-        src={post.imageUrl}
-        alt='Blog Picture'
-        className='hidden h-[258px] w-[340px] rounded-[6px] lg:block'
-      />
+      <div className='hidden rounded-[6px] bg-blue-100 lg:flex lg:h-[258px] lg:w-[340px] lg:items-center lg:justify-center'>
+        <img
+          src={post.imageUrl}
+          alt='Blog Picture'
+          className='size-full object-cover'
+        />
+      </div>
       <div className='flex h-full w-full flex-col'>
         <div className='flex h-[152px] w-full flex-col gap-2 lg:h-[176px]'>
           <h2 className='text-md max-h-[60px] w-full font-bold text-[#181D27] lg:max-h-[68px] lg:text-xl'>
             {post.title}
           </h2>
           {/* Skill Cards */}
-          <div className='flex h-[28px] flex-row gap-2 overflow-hidden'>
+          <div className='flex h-[28px] w-full flex-row gap-2 overflow-hidden'>
             {post.tags.map((tag, index) => (
               <p
                 key={index}
