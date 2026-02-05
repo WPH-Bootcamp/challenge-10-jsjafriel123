@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Overlay from './Overlay';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AuthActions from './AuthActions';
 // import { useLogout } from "@/features/auth/useLogout";
 
 type Props = {
@@ -45,20 +46,9 @@ export default function MobileMenu({ open, onClose }: Props) {
             />
           </button>
         </div>
-        <nav className='flex h-[88px] w-[214px] flex-col items-center gap-4'>
-          <Link
-            href='/login'
-            className='h-[28px] w-[36px] cursor-pointer text-[14px]/[28px] font-semibold text-[#0093DD] underline hover:scale-110'
-          >
-            Login
-          </Link>
-          <Link
-            href='/register'
-            className='flex h-[44px] w-[214px] cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0093DD] p-2 font-semibold text-white hover:scale-110'
-          >
-            Register
-          </Link>
-        </nav>
+        <div className='mt-9.75 flex'>
+          <AuthActions />
+        </div>
       </section>
     </>
   );
