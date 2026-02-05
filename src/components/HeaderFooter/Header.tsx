@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import MobileMenu from './MobileMenu';
 import Link from 'next/link';
-import { Input } from '../ui/input';
+import FormSearch from '../ui/formSearch';
+// import { Input } from '../ui/input';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Header() {
@@ -11,6 +12,13 @@ export default function Header() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [value, setValue] = useState('');
+
+  const handleSearch = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('query', value);
+    params.set('page', '0'); // reset pagination
+    router.push(`/search?${params.toString()}`);
+  };
 
   return (
     <header className='bg-background fixed z-30 flex h-[64px] w-[393px] items-center justify-between border-b border-[#D5D7DA] px-4 lg:h-[80px] lg:w-[1440px] lg:justify-between lg:px-30'>
@@ -25,11 +33,14 @@ export default function Header() {
       {/* Mobile Section */}
       <div className='flex h-[24px] w-[72px] justify-between lg:hidden'>
         <button type='button' className='size-6 cursor-pointer hover:scale-120'>
+          {/* <Link href='/search' className='size-6 cursor-pointer hover:scale-110'> */}
           <img
             src='/assets/icon-Search.svg'
             alt='Search'
+            onClick={() => handleSearch()}
             className='object-cover'
           />
+          {/* </Link> */}
         </button>
         <button
           type='button'
@@ -45,32 +56,9 @@ export default function Header() {
         <MobileMenu open={open} onClose={() => setOpen(false)} />
       </div>
       {/* Desktop Section */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const params = new URLSearchParams(searchParams.toString());
-          params.set('query', value);
-          params.set('page', '1'); // reset pagination
-
-          router.push(`/search?${params.toString()}`);
-        }}
-        className='relative size-auto'
-      >
-        <Input
-          id='search'
-          type='search'
-          placeholder='Search'
-          onChange={(e) => setValue(e.target.value)}
-          className='hidden lg:block lg:h-[48px] lg:w-[373px] lg:px-2 lg:pl-10'
-        />
-        <button className='absolute hidden size-6 lg:top-3 lg:left-2 lg:block'>
-          <img
-            src='/assets/icon-Search.svg'
-            alt='Search'
-            className='object-cover'
-          />
-        </button>
-      </form>
+      <div className='hidden lg:block'>
+        <FormSearch isSearch={false} />
+      </div>
       <nav className='lg: hidden items-center lg:flex lg:h-[44px] lg:w-[266px] lg:justify-evenly'>
         <Link
           href='/login'

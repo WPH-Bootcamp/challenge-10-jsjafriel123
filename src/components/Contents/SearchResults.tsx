@@ -3,16 +3,22 @@ import Pagination from '@/components/Pagination/Pagination';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import PostCard from '../ui/postCard';
+import { UserPaginatedResponse, UserPost } from '@/types/blog';
 
 type Props = {
   query: string;
   page: number;
+  isSearch: boolean;
 };
 
-export default async function SearchResults({ query, page }: Props) {
-  const res = await searchPosts(query, page);
-  //   console.log(res);
-  if (res.data.length === 0) {
+export default async function SearchResults({ query, page, isSearch }: Props) {
+  let res: UserPaginatedResponse<UserPost> | null = null;
+
+  if (!isSearch) {
+    res = await searchPosts(query, page);
+  }
+
+  if (!isSearch && res?.data.length === 0) {
     return (
       <section className='flex h-[calc(100vh-124px)] w-full lg:h-[calc(100vh-160px)]'>
         <div className='justify-evently mt-65.25 flex h-71.75 w-93 flex-col items-center gap-6 lg:mt-87'>
@@ -47,20 +53,23 @@ export default async function SearchResults({ query, page }: Props) {
           </h1>
         </div>
         <div className='h-full w-full overflow-y-auto'>
-          {res.data.map((post) => (
+          {res?.data.map((post) => (
             <Fragment key={post.id}>
               <Link href={`/posts/${post.id}`}>
                 <PostCard post={post} />
               </Link>
+              <hr className='w-full border border-[#D5D7DA]' />
             </Fragment>
           ))}
         </div>
-        <hr className='w-full border border-[#D5D7DA]' />
-        <Pagination
-          currentPage={page}
-          totalPages={res.lastPage}
-          epoint='search'
-        />
+
+        {!isSearch && (
+          <Pagination
+            currentPage={page ?? 0}
+            totalPages={res?.lastPage ?? 0}
+            epoint='search'
+          />
+        )}
       </div>
     </section>
   );
