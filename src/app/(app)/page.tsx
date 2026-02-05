@@ -7,8 +7,8 @@
  * - Handle loading dan error states
  */
 
-import Recommended from "@/components/Contents/Recommended";
-import MostLiked from "@/components/Contents/MostLiked";
+import Recommended from '@/components/Contents/Recommended';
+import MostLiked from '@/components/Contents/MostLiked';
 type PageProps = {
   searchParams: Promise<{
     page?: string;
@@ -20,10 +20,10 @@ export default async function Home({ searchParams }: PageProps) {
   const currentPage = Number(params.page) || 1;
 
   return (
-    <div className="container min-h-screen mx-auto px-4 py-6">
-      <div className="flex flex-col lg:flex-row items-center lg:items-start lg:justify-evenly w-[393px] lg:w-[1440px] lg:h-[1730px] lg:px-28 py-0 lg:gap-12">
+    <div className='container mx-auto min-h-screen px-4 py-6'>
+      <div className='flex w-[393px] flex-col items-center py-0 lg:h-[1730px] lg:w-[1440px] lg:flex-row lg:items-start lg:justify-evenly lg:gap-12 lg:px-28'>
         <Recommended page={currentPage} />
-        <div className="w-full h-[2px] lg:w-[2px] lg:h-auto lg:self-stretch bg-[#D5D7DA] self-center" />
+        <div className='h-[2px] w-full self-center bg-[#D5D7DA] lg:h-auto lg:w-[2px] lg:self-stretch' />
         <MostLiked />
       </div>
     </div>
